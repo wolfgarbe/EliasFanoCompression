@@ -91,7 +91,7 @@ static class EliasFanoCompression
         uint largestblockID = (uint)postingList[postingList.Count - 1];
         double averageDelta = (double)largestblockID / (double)postingList.Count;
         double averageDeltaLog = Math.Log(averageDelta, 2);
-        int lowBitsLength = (int)Math.Round(averageDeltaLog); if (lowBitsLength < 0) lowBitsLength = 0;
+        int lowBitsLength = (int)Math.Floor(averageDeltaLog); if (lowBitsLength < 0) lowBitsLength = 0;
         ulong lowBitsMask = (((ulong)1 << lowBitsLength) - 1);
 
         int compressedBufferPointer1 = 0;
