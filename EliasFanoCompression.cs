@@ -34,7 +34,7 @@ static class EliasFanoCompression
 
         List<uint> postingList = new List<uint>(n);
 
-        //hashset fits in RAM && enough gaps (n*1.1<range)
+        // hashset fits in RAM && enough gaps (n*1.1<range)
         if ((n <= 10000000) && (n * 1.1 < range))
         {
             // fast for sparse lists, in dense lists many loops because difficult for random to hit remaining gaps, hashset required (RAM), sorting required 
@@ -151,7 +151,7 @@ static class EliasFanoCompression
             lastDocID = docID;
         }
 
-        //final flush buffer
+        // final flush buffer
         if (bufferLength1 > 0)
         {
             compressedBuffer[compressedBufferPointer1++] = (byte)(buffer1 << (8 - bufferLength1));
@@ -231,7 +231,7 @@ static class EliasFanoCompression
             byte docIdNumber = decodingTableDocIdNumber[cb]; 
             docID += highBitsCarryover;
 
-            // unaryCodeLength = number of trailing zeros (nullen-übertrag)   : bei null-byte : unaryCodeLength+=8 / docIdNumber
+            // number of trailing zeros (zeros carryover), if whole byte=0 then unaryCodeLength+=8
             highBitsCarryover = decodingTableHighBitsCarryover[cb];
 
             for (byte i = 0; i < docIdNumber; i++)
@@ -304,7 +304,7 @@ static class EliasFanoCompression
        
 
         Console.WriteLine("\rPress any key to exit");
-        Console.ReadLine();
+        Console.ReadKey();
     }
 }
 
