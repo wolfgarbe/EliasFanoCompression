@@ -283,7 +283,9 @@ static class EliasFanoCompression
 
             // compression
             Console.Write("\rCompress posting list...");
-            byte[] compressedBuffer1 = new byte[postingListLength * 5];
+            //maximum compressed size
+            int maxCompressedSize = (int)((2 + Math.Log((double)postingList1[postingList1.Count-1] / (double)postingList1.Count, 2)) * postingList1.Count / 8) + 6;
+            byte[] compressedBuffer1 = new byte[maxCompressedSize];
             int compressedBufferPointer1 = 0;
             EliasFanoCompress(postingList1, compressedBuffer1, ref compressedBufferPointer1);
 
