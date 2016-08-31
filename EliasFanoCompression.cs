@@ -297,7 +297,6 @@ static class EliasFanoCompression
 
             // verification
             Console.Write("Verify posting list...");
-            
             bool error = false;
             for (int i = 0; i < resultPointer1; i++) if (postingList1[i] != postingList10[i]) { error=true;break; }
             if (resultPointer1 != postingList1.Count) error = true;
