@@ -206,7 +206,7 @@ static class EliasFanoCompression
 
         int lowBitsPointer = 0;
         ulong lastDocID = 0;
-        byte highBitsCarryover = 0;
+        ulong docID = 0;
 
         // read postingList.Count for decompression: LSB first
         int postingListCount = compressedBuffer[lowBitsPointer++];
@@ -222,18 +222,15 @@ static class EliasFanoCompression
         byte lowBits = 0;
 
         // decompress high bits
-        ulong docID = 0;
+        byte cb = 1;
         for (int highBitsPointer =lowBitsLength * postingListCount / 8 + 6 ; highBitsPointer < compressedBufferPointer; highBitsPointer++)
         {
-            byte cb = compressedBuffer[highBitsPointer];
-
-            //number of docids contained within one byte    
-            byte docIdNumber = decodingTableDocIdNumber[cb]; 
-            docID += highBitsCarryover;
-
             // number of trailing zeros (zeros carryover), if whole byte=0 then unaryCodeLength+=8
-            highBitsCarryover = decodingTableHighBitsCarryover[cb];
+            docID += decodingTableHighBitsCarryover[cb];
+            cb = compressedBuffer[highBitsPointer];
 
+            // number of docids contained within one byte    
+            byte docIdNumber = decodingTableDocIdNumber[cb]; 
             for (byte i = 0; i < docIdNumber; i++)
             {
                 // decompress low bits
