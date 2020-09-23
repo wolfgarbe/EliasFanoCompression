@@ -24,3 +24,7 @@ it under the terms of the GNU Lesser General Public License,
 version 3.0 (LGPL-3.0) as published by the Free Software Foundation.
 http://www.opensource.org/licenses/LGPL-3.0
 ```
+
+---
+
+**EliasFanoCompression** is contributed by [**SeekStorm** - the high performance Search as a Service & search API](https://seekstorm.com)
